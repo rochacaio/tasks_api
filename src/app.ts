@@ -1,8 +1,10 @@
-import * as express from 'express';
-import {Request, Response } from "express";
-import  * as bodyParser from 'body-parser';
-import * as cors from 'cors';
-import * as logger from 'morgan';
+import express from 'express';
+import { Request, Response } from "express";
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import logger from 'morgan';
+import swaggerUi from "swagger-ui-express";
+import swaggerFile from '../src/config/swagger.json';
 
 import { createConnectionDB } from './config/db';
 import { taskRouter } from './routes/task';
@@ -24,4 +26,10 @@ createConnectionDB().then();
 
 // configurando rotas
 app.use('/tasks', taskRouter);
-app.use('/', (req: Request, res: Response):any => (res.send('Tasks API')));
+
+// Rota da documentação do Swagger
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+// Rota raiz
+app.use('/', (req: Request, res: Response): any => (res.send('Tasks API')));

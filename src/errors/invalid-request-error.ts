@@ -1,6 +1,8 @@
 export class InvalidRequestError extends Error {
-    constructor () {
-        super('Recurso não autorizado');
+    private statusError: number;
+    constructor (message = "Unauthorized") {
+        super(message);
         this.name = 'InvalidRequestError'
+        this.statusError = 401
     }
 }

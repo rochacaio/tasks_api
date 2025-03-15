@@ -1,4 +1,6 @@
 export * from '../protocols'
 export * from '../protocols/taskValidator'
 export * from '../useCases/addTask'
-export * from '../config/models/task'
+export * from '../useCases/updateTask'
+export * from '../useCases/getTask'
+export * from '../useCases/deleteTask'

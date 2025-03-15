@@ -1,0 +1,149 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Tasks API",
+        "version": "1.0.0",
+        "description": "API para gerenciamento de tarefas"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Gerar token de acesso",
+                "operationId": "generateToken",
+                "responses": {
+                    "200": {
+                        "description": "Token gerado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": { "type": "string" },
+                                        "token": { "type": "string" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/add": {
+            "post": {
+                "summary": "Adicionar uma nova tarefa",
+                "operationId": "addTask",
+                "security": [{ "bearerAuth": [] }],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Task"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": { "description": "Tarefa criada com sucesso" },
+                    "400": { "description": "Erro de validação" }
+                }
+            }
+        },
+        "/get/{id}": {
+            "get": {
+                "summary": "Obter uma ou todas as tarefas",
+                "operationId": "getTasks",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "required": false,
+                    "schema": { "type": "integer" }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Lista de tarefas ou uma única tarefa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": { "$ref": "#/components/schemas/Task" }
+                                }
+                            }
+                        }
+                    },
+                    "404": { "description": "Tarefa não encontrada" }
+                }
+            }
+        },
+        "/update/{id}": {
+            "put": {
+                "summary": "Atualizar uma tarefa",
+                "operationId": "updateTask",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": { "type": "integer" }
+                }],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Task"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": { "description": "Tarefa atualizada com sucesso" },
+                    "404": { "description": "Tarefa não encontrada" }
+                }
+            }
+        },
+        "/delete/{id}": {
+            "delete": {
+                "summary": "Excluir uma tarefa",
+                "operationId": "deleteTask",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": { "type": "integer" }
+                }],
+                "responses": {
+                    "200": { "description": "Tarefa excluída com sucesso" },
+                    "404": { "description": "Tarefa não encontrada" }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Task": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "integer" },
+                    "description": { "type": "string" },
+                    "title": { "type": "string" },
+                    "task_time": { "type": "number" },
+                    "incharge_person": { "type": "string" },
+                    "create_date": { "type": "string", "format": "date-time" },
+                    "update_date": { "type": "string", "format": "date-time" },
+                    "started": { "type": "boolean" },
+                    "completed": { "type": "boolean" }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

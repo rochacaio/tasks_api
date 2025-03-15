@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BeforeUpdate} from "typeorm";
 
 @Entity()
 export class Task {
@@ -7,6 +7,9 @@ export class Task {
 
     @Column()
     description: string;
+
+    @Column({ nullable: true })
+    title: string;
 
     // Tempo que a tarefa vai demorar para ser feita em horas
     @Column()
@@ -19,12 +22,17 @@ export class Task {
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
     create_date: Date;
 
-    @Column({ type: "timestamp", nullable: true })
-    delete_date: Date;
-
     @Column({ type: "timestamp", nullable: true, onUpdate: "CURRENT_TIMESTAMP" })
     update_date: Date;
 
     @Column({ type: "boolean", default: false })
     started: boolean;
+
+    @Column({ default: false })
+    completed: boolean;
+
+    @BeforeUpdate()
+    updateTimestamp() {
+        this.update_date = new Date();
+    }
 }

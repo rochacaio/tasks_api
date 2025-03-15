@@ -12,6 +12,18 @@
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "sourceMap": true,
-     "allowSyntheticDefaultImports": true
+     "allowSyntheticDefaultImports": true,
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "paths": {
+         "@controllers/*": ["src/Controller/*"],
+         "@repositories/*": ["src/repositories/*"],
+         "@useCases/*": ["src/useCases/*"],
+         "@validators/*": ["src/validator/*"],
+         "@utils/*": ["src/utils/*"],
+         "@middlewares/*": ["src/middlewares/*"],
+         "@entities/*": ["src/entities/*"],
+         "@config/*": ["src/config/*"]
+      }
    }
 }
