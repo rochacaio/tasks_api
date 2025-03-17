@@ -5,8 +5,9 @@
         "version": "1.0.0",
         "description": "API para gerenciamento de tarefas"
     },
+    "security": [{ "bearerAuth": [] }],
     "paths": {
-        "/": {
+        "/tasks": {
             "get": {
                 "summary": "Gerar token de acesso",
                 "operationId": "generateToken",
@@ -28,7 +29,7 @@
                 }
             }
         },
-        "/add": {
+        "/tasks/add": {
             "post": {
                 "summary": "Adicionar uma nova tarefa",
                 "operationId": "addTask",
@@ -49,7 +50,7 @@
                 }
             }
         },
-        "/get/{id}": {
+        "/tasks/get/{id}": {
             "get": {
                 "summary": "Obter uma ou todas as tarefas",
                 "operationId": "getTasks",
@@ -76,11 +77,10 @@
                 }
             }
         },
-        "/update/{id}": {
+        "/tasks/update/{id}": {
             "put": {
                 "summary": "Atualizar uma tarefa",
                 "operationId": "updateTask",
-                "security": [{ "bearerAuth": [] }],
                 "parameters": [{
                     "name": "id",
                     "in": "path",
@@ -103,11 +103,10 @@
                 }
             }
         },
-        "/delete/{id}": {
+        "/tasks/delete/{id}": {
             "delete": {
                 "summary": "Excluir uma tarefa",
                 "operationId": "deleteTask",
-                "security": [{ "bearerAuth": [] }],
                 "parameters": [{
                     "name": "id",
                     "in": "path",

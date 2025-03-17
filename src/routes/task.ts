@@ -13,7 +13,7 @@ import {DeleteTaskUseCase, UpdateTaskUseCase, GetTaskUseCase, AddTaskUseCase} fr
 export const taskRouter: Router = Router()
 
 // Rota padrão para criar o token de acesso
-taskRouter.get('/', (res: Response) => {
+taskRouter.get('/', (req: Request,res: Response) => {
     const token = generateToken();
     res.json({ message: 'Token gerado com sucesso!', token });
 });
